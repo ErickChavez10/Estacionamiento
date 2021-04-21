@@ -1,0 +1,1 @@
+export const SERVER_IP = 'https://estacionamiento-real-time.herokuapp.com/';

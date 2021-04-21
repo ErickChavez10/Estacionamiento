@@ -59,7 +59,6 @@ export default {
   },
   async created() {
     this.datos = await getList();
-    console.log("[Datos]",this.datos)
   },
   methods: {
     Ocupar(posicion, zona, piso) {
@@ -72,7 +71,6 @@ export default {
     },
     async elminiar() {
       Socket.emit("Selecciona", 1, "A", 1);
-      // console.log("ELIMINA")
     },
   },
   mounted() {
