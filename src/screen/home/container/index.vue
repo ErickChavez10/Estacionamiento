@@ -7,18 +7,6 @@
         Name="Tec Laguna"
         Description="orem ipsum dolor sit amet, consectetur adipiscing elit. Sed et vulputate enim. Nunc suscipit bibendu"
       />
-      <Cards
-        Name="Tec de Monterrey"
-        Description="orem ipsum dolor sit amet, consectetur adipiscing elit. Sed et vulputate enim. Nunc suscipit bibendu"
-      />
-      <Cards
-        Name="Cuatro Caminos"
-        Description="orem ipsum dolor sit amet, consectetur adipiscing elit. Sed et vulputate enim. Nunc suscipit bibendu"
-      />
-      <Cards
-        Name="Galerias"
-        Description="orem ipsum dolor sit amet, consectetur adipiscing elit. Sed et vulputate enim. Nunc suscipit bibendu"
-      />
     </v-container>
   </v-app>
 </template>

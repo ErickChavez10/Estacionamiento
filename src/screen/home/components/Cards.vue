@@ -18,7 +18,7 @@
         <v-img
           class="rounded-xl"
           height="200"
-          src="../../../assets/img/portada.jpeg"
+          src="../../../assets/img/itl.jpg"
         ></v-img>
 
         <v-card-title>{{ Name }}</v-card-title>

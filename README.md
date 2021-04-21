@@ -24,5 +24,6 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-
+### Page
+[Ir a la pagina](https://estacionamiento-en-tiempo-real.herokuapp.com/)
 #### Las imagenes de portadas son de 300x160

@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <v-row no-gutters>
-      <v-col cols="12" sm="4">
+
+    <v-row no-gutters class="text-center">
+      <v-col cols="1" sm="1"></v-col>
+      <v-col cols="12" sm="3" class="mx-5 pt-3">
         <router-link to="/mapa" style="text-decoration: none">
           <v-btn
             width="100%"
@@ -16,7 +18,7 @@
         </router-link>
       </v-col>
 
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="3" class="mx-5">
         <v-select
           :items="['Zona A', 'Zona B']"
           class="mt-2 text-center rounded-lg"
@@ -24,7 +26,7 @@
           v-model="zonaSel"
         ></v-select>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="3" class="mx-5">
         <v-select
           :items="['Piso 1', 'Piso 2']"
           class="text-center rounded-lg"
@@ -60,5 +62,10 @@ export default {
 <style>
 .border {
   border: 1px solid black;
+}
+.center-to{
+  justify-content: center;
+  align-items: center;
+
 }
 </style>
