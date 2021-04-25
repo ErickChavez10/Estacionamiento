@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Toolbar title="Estacionamiento" back={true} to="home"/>
+    <Navbar title="Tec Laguna" />
     <v-container dark> 
       <BotonesSel />
       <Sitio dark />
@@ -11,16 +11,15 @@
 <script>
 import BotonesSel from "../components/BotonesSel";
 import Sitio from "../components/Sitio";
-import Toolbar from "../../../components/toolbar";
+
 import Socket from "@/store/sockets.js";
+import Navbar from '../../../components/navbar/container/navbar.vue';
 
 export default {
   name: "estacionamiento",
-  components: { BotonesSel, Sitio, Toolbar },
+  components: { BotonesSel, Sitio, Navbar },
   created(){
-    Socket.on("connection",()=>{
-      
-    });
+    Socket.on("connection");
   }, 
 };
 </script>

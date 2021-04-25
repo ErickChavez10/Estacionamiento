@@ -6,9 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    socket
+    socket,
+    token: 'no_token'
   },
   mutations: {
+    
   },
   actions: {
   },

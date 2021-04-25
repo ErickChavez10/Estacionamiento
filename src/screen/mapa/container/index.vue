@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Toolbar title="SOY UN TITULO" back="true" />
+    <Toolbar title="Mapa Tec Laguna" back="true" />
 
     <v-container class="rounded-lg">
       <v-select

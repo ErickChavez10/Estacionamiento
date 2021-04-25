@@ -7,6 +7,7 @@ import { SERVER_IP } from "../config/index";
 
 const URL_LIST = 'list'
 const URL_ADD_USER = 'addUser'
+const URL_LOGIN = 'login'
 
 
 export const getList = async () => {
@@ -24,7 +25,7 @@ export const addUser = async (r_name, r_mod_auto, r_email, r_password, r_passwor
         password_confirm: r_password_confirm
     }
     const URL = SERVER_IP + URL_ADD_USER;
-    fetch(URL, {
+    let n = await fetch(URL, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -32,6 +33,28 @@ export const addUser = async (r_name, r_mod_auto, r_email, r_password, r_passwor
         method: 'post',
         body: JSON.stringify(req),
     })
-        .then(function (res) {console.log(res)})
-        .catch(function (res) {console.log(res)})
+    const data = await n.json()
+    console.log("[data]",data);
+    return data.res
+}
+
+export const login = async (email, password) => {
+    const URL = SERVER_IP + URL_LOGIN;
+
+    const req = {
+        email,
+        password
+    }
+    let n = await fetch(URL, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify(req),
+    })
+    
+    const data = await n.json()
+    console.log("[data]",data);
+    return data.res
 }

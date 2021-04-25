@@ -5,7 +5,7 @@
         <div>
           <v-toolbar>
             <h1 v-if="back">
-              <router-link to="/" style="text-decoration:none">
+              <router-link to="/estacionamiento" style="text-decoration:none">
                 <v-btn icon>
                   <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>

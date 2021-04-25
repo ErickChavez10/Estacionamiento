@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <toolbar title="AppName" />
+    <navbar />
 
     <v-container>
       <Cards
         Name="Tec Laguna"
-        Description="orem ipsum dolor sit amet, consectetur adipiscing elit. Sed et vulputate enim. Nunc suscipit bibendu"
+        Description="Estacionamiento del Instituto Tecnologico de la laguna, Cuenta con 4 zonas de estacionamiento, cada una con su respectiva entrada"
       />
     </v-container>
   </v-app>
@@ -13,11 +13,12 @@
 
 <script>
 import Cards from "../components/Cards";
-import Toolbar from "../../../components/toolbar";
+
+import Navbar from '../../../components/navbar/container/navbar';
 export default {
   name: "Home",
-  components: { Cards, Toolbar },
-  data: () => ({}),
+  components: { Cards, Navbar },
+  data: () => ({ }),
 };
 </script>
 
