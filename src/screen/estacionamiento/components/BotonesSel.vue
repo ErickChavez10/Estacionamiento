@@ -21,6 +21,7 @@
           :items="['Zona A', 'Zona B']"
           class="mt-2 text-center rounded-lg"
           label="Seleccionar Zona"
+          @change="change_zona"
           v-model="zonaSel"
         ></v-select>
       </v-col>
@@ -35,7 +36,7 @@
       </v-col>
     </v-row>
     <div class="separador text-center mt-5 pt-1">
-      <p class="text">{{ zonaSel }} - {{ pisoSel }}</p>
+      <p class="text">{{ zonaSel }} - {{ pisoSel }} </p>
     </div>
   </v-container>
 </template>
@@ -45,6 +46,9 @@ import Socket from "@/store/sockets.js";
 
 export default {
   name: "BotonesSel",
+  created(){
+
+  },
   data() {
     Socket.on("connection");
     return {
@@ -54,6 +58,9 @@ export default {
   },
   methods: {
     evento() {},
+    change_zona(){
+      console.log(this.zonaSel)
+    }
   },
 };
 </script>

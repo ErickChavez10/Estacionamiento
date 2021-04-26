@@ -7,10 +7,10 @@
     </v-app-bar>
     <v-navigation-drawer dark v-model="drawer" absolute left temporary>
       <div v-if="session">
-        <DrawerSesion drawer="drawer" />
+        <DrawerSesion drawer="drawer" :user="user" />
       </div>
       <div v-else>
-        <DrawerNoSesion drawer="drawer" />
+        <DrawerNoSesion />
       </div>
     </v-navigation-drawer>
     <div style="margin-top:60px"></div>
@@ -24,10 +24,16 @@ export default {
   name: "navbar",
   props:['title'],
   components: { DrawerSesion, DrawerNoSesion },
+  created(){
+    const n = JSON.parse(localStorage.getItem('@info'));
+    this.session = n? true : false;
+    this.user = n? n.user: null;
+  },
   data() {
     return {
       drawer: false,
       session: false,
+      user: null
     };
   },
 };

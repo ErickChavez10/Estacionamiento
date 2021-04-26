@@ -7,9 +7,9 @@
             <v-img src="@/assets/img/default-person.png" />
           </v-avatar>
           <v-card-subtitle>
-            Erick Humberto Chavez Mendez
+            {{user.name}}
             <br />
-            Ford Mustang Gt 2007
+            {{user.auto}}
           </v-card-subtitle>
         </center>
       </div>
@@ -36,7 +36,7 @@
         <v-spacer></v-spacer>
 
         <v-list-item>
-          <v-list-item-title>
+          <v-list-item-title @click="logout">
             <v-icon style="margin-bottom: 5px">mdi-logout-variant</v-icon>
             CERRAR SESION
           </v-list-item-title>
@@ -49,6 +49,16 @@
 <script>
 export default {
   name: "drawer-sesion",
+  props:['user'],
+  created(){
+    console.log(this.user)
+  },
+  methods:{
+    logout(){
+      localStorage.clear();
+      this.$router.push('/home');
+    }
+  }
 };
 </script>
 

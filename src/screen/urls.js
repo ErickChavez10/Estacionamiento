@@ -34,8 +34,7 @@ export const addUser = async (r_name, r_mod_auto, r_email, r_password, r_passwor
         body: JSON.stringify(req),
     })
     const data = await n.json()
-    console.log("[data]",data);
-    return data.res
+    return data
 }
 
 export const login = async (email, password) => {

@@ -53,7 +53,10 @@ export default {
         console.log("[response]",response)
         if(response.status == 'success'){
             // AQUI GUARDAR EL TOKEN Y LO DEMAS
-            alert("HAS INICIADO SESION")
+            const {user, token} = response
+            localStorage.setItem('@info',JSON.stringify({user, token}))
+            // alert("HAS INICIADO SESION")
+            this.$router.push('/')
         }else{
             // OCURRIO UN ERROR
             alert('LOS DATOS NO COINCIDEN')

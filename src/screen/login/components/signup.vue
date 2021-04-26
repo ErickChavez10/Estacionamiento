@@ -50,7 +50,7 @@
         ACCEPT
       </v-btn>
     </v-card-actions>
-    <v-btn @click="getToken">GET</v-btn>
+    <!-- <v-btn >GET</v-btn> -->
   </v-card>
 </template>
 
@@ -80,24 +80,25 @@ export default {
         this.r_password,
         this.r_password_confirm
       );
-      if(response.status == "success"){
+      console.log("[Response]", response);
+      if (response.res.status == "success") {
         // SE HA REGISTRADO
-        alert("TE HAS REGISTRADO")
-      }else{
+        const { user, token } = response;
+        console.log(user, token);
+        // alert("HAS INICIADO SESION")
+        localStorage.setItem("@info", JSON.stringify({ user, token }));
+        this.$router.push("/");
+        // alert("TE HAS REGISTRADO")
+      } else {
         // HA OCURRIDO UN ERROR
-        if(response.msg == 'user_exist'){
-          alert("EL EMAIL YA EXISTE")
-        }else if(response.msg == 'no_match'){
-          alert('LAS CONTRASEÑAS NO COINCIDEN')
-        }else{
-          alert('COMPLETE LOS CAMPOS')
+        if (response.msg == "user_exist") {
+          alert("EL EMAIL YA EXISTE");
+        } else if (response.msg == "no_match") {
+          alert("LAS CONTRASEÑAS NO COINCIDEN");
+        } else {
+          alert("COMPLETE LOS CAMPOS");
         }
       }
-      console.log("[sign]",response);
-    },
-    async getToken(){
-        const tkn = this.$store.state.token;
-        console.log("[token]",tkn)
     },
   },
 };

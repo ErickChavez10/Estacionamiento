@@ -3,7 +3,6 @@
     dark
     class="mx-auto mb-5 rounded-xl"
     max-width="374"
-    v-on:click="click"
   >
     <router-link
       to="/Estacionamiento"
@@ -30,8 +29,10 @@
           </v-img>
         </div>
         <v-card-title class="text-color">{{ Name }}</v-card-title>
-
         <v-card-subtitle class="text-color">{{ Description }}</v-card-subtitle>
+        <v-card-actions>
+          <v-btn class="btn-entrar-bg" color="blue">Entrar</v-btn>
+        </v-card-actions>
       </v-container>
     </router-link>
   </v-card>
@@ -59,14 +60,8 @@ export default {
       disponibles: "Disponibles: 4/10",
     };
   },
-  methods: {
-    click: () => {
-      // alert("Te llevo a otra pantalla bro");
-    },
-  },
   mounted() {
     Socket.on("Selecciona", (lista) => {
-      console.log("[lista]",lista)
       let num = 0;
       lista.forEach(elem=>{
         if(elem.sel)

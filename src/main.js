@@ -20,6 +20,11 @@ const routes = [
     component: Home,
   },
   {
+    path: "/home",
+    name: "home",
+    component: Home,
+  },
+  {
     path: "/Estacionamiento",
     name: "estacionamiento",
     component: Estacionamiento,
