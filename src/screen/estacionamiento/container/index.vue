@@ -3,7 +3,6 @@
     <Navbar title="Tec Laguna" />
     <v-container dark>
       <BotonesSel />
-      <v-btn @click="click">Btn</v-btn>
       <Sitio/>
     </v-container>
   </v-app>
@@ -27,8 +26,6 @@ export default {
     Socket.on("connection");
   },
   methods:{
-    click(){
-    }
   }
 };
 </script>

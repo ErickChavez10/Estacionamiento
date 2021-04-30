@@ -53,11 +53,11 @@ export default {
       if(elem.sel)
         num++;
     });
-    this.disponibles= `Disponibles: ${num}/${lista.length}`
+    this.disponibles= `Ocupados: ${num}/${lista.length}`
   },
   data() {
     return {
-      disponibles: "Disponibles: 4/10",
+      disponibles: "Cargando lugares disponibles",
     };
   },
   mounted() {
@@ -67,7 +67,7 @@ export default {
         if(elem.sel)
           num++;
       })
-      this.disponibles= `Disponibles: ${num}/${lista.length}`
+      this.disponibles= `Ocupados: ${num}/${lista.length}`
     });
   },
 };

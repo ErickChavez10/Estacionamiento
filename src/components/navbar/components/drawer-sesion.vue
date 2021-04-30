@@ -51,7 +51,6 @@ export default {
   name: "drawer-sesion",
   props:['user'],
   created(){
-    console.log(this.user)
   },
   methods:{
     logout(){

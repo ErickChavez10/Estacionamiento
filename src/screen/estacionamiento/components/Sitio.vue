@@ -1,8 +1,15 @@
 <template>
   <v-container class="rounded-lg">
-    <p>Sitio:</p>
+    <Dialog ref="dialog" @retorno="retorno" />
     <div v-if="datos.length == 0">
-      <p>Loading</p>
+      <center>
+        <p>CARGANDO</p>
+        <v-img
+          max-width="400"
+          max-height="400"
+          src="@/assets/img/loading.gif"
+        ></v-img>
+      </center>
     </div>
     <div v-else>
       <v-row>
@@ -19,7 +26,7 @@
           <v-card>
             <div v-if="n.sel">
               <v-btn
-                v-on:click="Ocupar(n.Posicion, n.Zona, n.Piso)"
+                v-on:click="Ocupar(n)"
                 block
                 outlined
                 text
@@ -32,7 +39,7 @@
             </div>
             <div v-else>
               <v-btn
-                v-on:click="Ocupar(n.Posicion, n.Zona, n.Piso)"
+                v-on:click="Ocupar(n)"
                 block
                 outlined
                 elevation="10"
@@ -54,22 +61,38 @@
 // import {Datos} from "../data/datos";
 import Socket from "@/store/sockets.js";
 import { getList } from "../../urls";
+import Dialog from "./dialog.vue";
 
 export default {
   name: "Sitio",
+  components: { Dialog },
   data() {
     return {
       datos: [],
+      info: null,
       ref: [],
+      msg: "",
     };
   },
   async created() {
     this.datos = await getList();
+    const info = JSON.parse(localStorage.getItem("@info"));
+    this.info = info;
   },
   methods: {
-    Ocupar(posicion, zona, piso) {
-      // this.datos = SelLugar(posicion, zona, piso, this.datos);
-      Socket.emit("Selecciona", posicion, zona, piso);
+    Ocupar({ Posicion, Zona, Piso }) {
+      const user = this.info;
+      if (!user) {
+        this.$refs.dialog.openD(
+          this.Posicion,
+          this.Zona,
+          this.Piso,
+          "Por favor inicia Sesion",
+          ""
+        );
+      } else {
+        Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
+      }
     },
     async mostrar() {
       const n = await getList();
@@ -78,11 +101,34 @@ export default {
     async elminiar() {
       Socket.emit("Selecciona", 1, "A", 1);
     },
+    async retorno(name) {
+      alert(name);
+    },
   },
   mounted() {
     Socket.on("Selecciona", (lista) => {
       this.ref = lista;
       this.datos = this.ref;
+    });
+
+    Socket.on("externo", (res) => {
+      if (res.status == "ocupado") {
+        this.$refs.dialog.openD(
+          this.Posicion,
+          this.Zona,
+          this.Piso,
+          `Ocupado por: ${res.auto}`,
+          res.auto
+        );
+      } else if (res.status == "existe") {
+        this.$refs.dialog.openD(
+          res.existe.Posicion,
+          res.existe.Zona,
+          res.existe.Piso,
+          `Ya tienes un lugar asignado`,
+          res.auto
+        );
+      }
     });
   },
 };
@@ -91,5 +137,10 @@ export default {
 <style>
 .border {
   border: 1px solid black;
+}
+
+.cent {
+  justify-content: center !important;
+  align-items: center !important;
 }
 </style>
