@@ -18,17 +18,17 @@
 
       <v-col class="px-5" cols="12" sm="4" md="4" lg="4" xl="4" pill="4">
         <v-select
-          :items="['Zona A', 'Zona B']"
+          :items="['Zona A', 'Zona B', 'Zona C', 'Zona D']"
           class="mt-2 text-center rounded-lg"
           label="Seleccionar Zona"
           @change="change_zona"
           v-model="zonaSel"
         ></v-select>
       </v-col>
-      
+
       <v-col class="pt-1 px-5" cols="12" sm="4" md="4" lg="4" xl="4" pill="4">
         <v-select
-          :items="['Piso 1', 'Piso 2']"
+          :items="['Piso 1']"
           class="text-center rounded-lg"
           label="Seleccionar Piso"
           v-model="pisoSel"
@@ -36,7 +36,7 @@
       </v-col>
     </v-row>
     <div class="separador text-center mt-5 pt-1">
-      <p class="text">{{ zonaSel }} - {{ pisoSel }} </p>
+      <p class="text">{{ zonaSel }} - {{ pisoSel }}</p>
     </div>
   </v-container>
 </template>
@@ -46,9 +46,8 @@ import Socket from "@/store/sockets.js";
 
 export default {
   name: "BotonesSel",
-  created(){
-
-  },
+  props: ["pos"],
+  created() {},
   data() {
     Socket.on("connection");
     return {
@@ -58,9 +57,26 @@ export default {
   },
   methods: {
     evento() {},
-    change_zona(){
-      console.log(this.zonaSel)
-    }
+    change_zona() {
+      console.log("A",this.zonaSel);
+      switch (this.zonaSel) {
+        case "Zona A":
+          this.$emit("changePlace", 'A');
+          break;
+        case "Zona B":
+          this.$emit("changePlace", 'B');
+          break;
+        case "Zona C":
+          this.$emit("changePlace", 'C');
+          break;
+        case "Zona D":
+          this.$emit("changePlace", 'D');
+          break;
+        default:
+          console.log("Zona Sel: ",this.zonaSel)
+          break;
+      }
+    },
   },
 };
 </script>

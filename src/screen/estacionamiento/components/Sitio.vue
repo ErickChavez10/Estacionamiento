@@ -1,5 +1,5 @@
 <template>
-  <v-container class="rounded-lg">
+  <v-container class="rounded-lg"> 
     <Dialog ref="dialog" @retorno="retorno" />
     <div v-if="datos.length == 0">
       <center>
@@ -15,7 +15,7 @@
       <v-row>
         <v-col
           v-for="n in datos"
-          :key="n.Posicion"
+          :key="n.Posicion+n.Zona"
           cols="6"
           sm="4"
           md="4"
@@ -65,6 +65,7 @@ import Dialog from "./dialog.vue";
 
 export default {
   name: "Sitio",
+  props:['zonaSel'],
   components: { Dialog },
   data() {
     return {
@@ -75,7 +76,8 @@ export default {
     };
   },
   async created() {
-    this.datos = await getList();
+    const list = await getList();
+    this.datos = list.filter(elem => elem.Zona == this.zonaSel)
     const info = JSON.parse(localStorage.getItem("@info"));
     this.info = info;
   },
@@ -96,7 +98,7 @@ export default {
     },
     async mostrar() {
       const n = await getList();
-      this.datos = n;
+      this.datos = n.filter(elem => elem.Zona == this.zonaSel);
     },
     async elminiar() {
       Socket.emit("Selecciona", 1, "A", 1);
@@ -104,10 +106,15 @@ export default {
     async retorno(name) {
       alert(name);
     },
+    async selZonaM(){
+      const lista = await getList();
+      this.ref = lista.filter(elem => elem.Zona == this.zonaSel);
+      this.datos = this.ref;
+    }
   },
   mounted() {
     Socket.on("Selecciona", (lista) => {
-      this.ref = lista;
+      this.ref = lista.filter(elem => elem.Zona == this.zonaSel);
       this.datos = this.ref;
     });
 

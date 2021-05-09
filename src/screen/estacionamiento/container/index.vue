@@ -2,8 +2,8 @@
   <v-app>
     <Navbar title="Tec Laguna" />
     <v-container dark>
-      <BotonesSel />
-      <Sitio/>
+      <BotonesSel @changePlace='changePlace' />
+      <Sitio :zonaSel='zona' ref="sitio" />
     </v-container>
   </v-app>
 </template>
@@ -20,12 +20,19 @@ export default {
   components: { BotonesSel, Sitio, Navbar },
   data() {
     return {
+      pos : 0,
+      zona: 'A',
     };
   },
   created() {
     Socket.on("connection");
   },
   methods:{
+    changePlace(zona){
+      this.zona = zona;
+      this.$refs.sitio.selZonaM();
+    },
+
   }
 };
 </script>
