@@ -1,5 +1,6 @@
 <template>
-  <v-container class="rounded-lg"> 
+  <v-container class="rounded-lg">
+    <v-card-title>{{ timer }}</v-card-title>
     <Dialog ref="dialog" @retorno="retorno" />
     <div v-if="datos.length == 0">
       <center>
@@ -15,7 +16,7 @@
       <v-row>
         <v-col
           v-for="n in datos"
-          :key="n.Posicion+n.Zona"
+          :key="n.Posicion + n.Zona"
           cols="6"
           sm="4"
           md="4"
@@ -65,7 +66,7 @@ import Dialog from "./dialog.vue";
 
 export default {
   name: "Sitio",
-  props:['zonaSel'],
+  props: ["zonaSel"],
   components: { Dialog },
   data() {
     return {
@@ -73,11 +74,15 @@ export default {
       info: null,
       ref: [],
       msg: "",
+      interval: null,
+      timer: "",
+      timedate: null,
+      counter: false,
     };
   },
   async created() {
     const list = await getList();
-    this.datos = list.filter(elem => elem.Zona == this.zonaSel)
+    this.datos = list.filter((elem) => elem.Zona == this.zonaSel);
     const info = JSON.parse(localStorage.getItem("@info"));
     this.info = info;
   },
@@ -93,12 +98,38 @@ export default {
           ""
         );
       } else {
+        this.timedate = new Date();
+        this.countdown(this.timedate);
+        console.log(this.timedate)
         Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
       }
     },
+    getRemainingTime(now) {
+        let deadline = new Date(),
+        remainTime = (new Date(deadline) - now + 1000) / 1000,
+        remainSeconds = ("0" + Math.floor(remainTime % 60)).slice(-2),
+        remainMinutes = ("0" + Math.floor((remainTime / 60) % 60)).slice(-2),
+        remainHours = ("0" + Math.floor((remainTime / 3600) % 24)).slice(-2),
+        remainDays = Math.floor(remainTime / (3600 * 24));
+
+      return {
+        remainSeconds,
+        remainMinutes,
+        remainHours,
+        remainDays,
+        remainTime,
+      };
+    },
+    countdown(deadline) {
+      setInterval(() => {
+        let t = this.getRemainingTime(deadline);
+        let res = `Tiempo en uso: ${t.remainHours}h:${t.remainMinutes}m:${t.remainSeconds}s`;
+          this.timer = res;
+      }, 1000);
+    },
     async mostrar() {
       const n = await getList();
-      this.datos = n.filter(elem => elem.Zona == this.zonaSel);
+      this.datos = n.filter((elem) => elem.Zona == this.zonaSel);
     },
     async elminiar() {
       Socket.emit("Selecciona", 1, "A", 1);
@@ -106,15 +137,15 @@ export default {
     async retorno(name) {
       alert(name);
     },
-    async selZonaM(){
+    async selZonaM() {
       const lista = await getList();
-      this.ref = lista.filter(elem => elem.Zona == this.zonaSel);
+      this.ref = lista.filter((elem) => elem.Zona == this.zonaSel);
       this.datos = this.ref;
-    }
+    },
   },
   mounted() {
     Socket.on("Selecciona", (lista) => {
-      this.ref = lista.filter(elem => elem.Zona == this.zonaSel);
+      this.ref = lista.filter((elem) => elem.Zona == this.zonaSel);
       this.datos = this.ref;
     });
 

@@ -12,9 +12,8 @@
 </template>
 
 <script>
-import Cards from "../components/Cards";
-
 import Navbar from '../../../components/navbar/container/navbar';
+import Cards from "../components/Cards";
 export default {
   name: "Home",
   components: { Cards, Navbar },
