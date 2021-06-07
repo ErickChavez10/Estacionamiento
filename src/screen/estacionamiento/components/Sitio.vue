@@ -1,7 +1,8 @@
 <template>
   <v-container class="rounded-lg">
     <v-card-title>{{ timer }}</v-card-title>
-    <Dialog ref="dialog" @retorno="retorno" />
+    <v-btn @click="event">al</v-btn>
+    <Dialog ref="dialog" @retorno="retorno" @exit="exit" />
     <div v-if="datos.length == 0">
       <center>
         <p>CARGANDO</p>
@@ -77,7 +78,10 @@ export default {
       interval: null,
       timer: "",
       timedate: null,
+      timedateFinal: null,
       counter: false,
+
+
     };
   },
   async created() {
@@ -87,6 +91,9 @@ export default {
     this.info = info;
   },
   methods: {
+    event(){
+      console.log(localStorage.getItem('@posicion'))
+    },
     Ocupar({ Posicion, Zona, Piso }) {
       const user = this.info;
       if (!user) {
@@ -95,14 +102,41 @@ export default {
           this.Zona,
           this.Piso,
           "Por favor inicia Sesion",
-          ""
+          "",
+          0
         );
       } else {
-        this.timedate = new Date();
-        this.countdown(this.timedate);
-        console.log(this.timedate)
-        Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
+        const aux1 = localStorage.getItem('@posicion')? localStorage.getItem('@posicion') : false
+        const aux2 = localStorage.getItem('@Zona')? localStorage.getItem('@Zona') : false
+        const aux3 = localStorage.getItem('@Piso')? localStorage.getItem('@Piso') : false
+        
+        if(aux1 == Posicion && Zona == aux2 && Piso == aux3){
+          console.log('Salir')
+          this.$refs.dialog.salir(
+            this.timedateFinal,
+            `¿Seguro de salir del estacionamiento?`,
+            Posicion, Zona, Piso, this.info.token, 1
+          );
+          
+          console.log('[SALIR]',aux1, Posicion, Zona, aux2, Piso, aux3);
+        }else{
+          console.log(aux1, Posicion, Zona, aux2, Piso, aux3);
+
+          console.log('SELECCIONA')
+          Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
+          if(!aux1){
+            console.log('[localstorage]')
+            localStorage.setItem('@posicion',Posicion)
+            localStorage.setItem('@Zona',Zona)
+            localStorage.setItem('@Piso',Piso)
+          }
+        }
       }
+    },
+    setTime(){
+      this.timedate = new Date();
+      this.countdown(this.timedate);
+      console.log(this.timedate)
     },
     getRemainingTime(now) {
         let deadline = new Date(),
@@ -121,18 +155,25 @@ export default {
       };
     },
     countdown(deadline) {
-      setInterval(() => {
+      this.interval = setInterval(() => {
         let t = this.getRemainingTime(deadline);
         let res = `Tiempo en uso: ${t.remainHours}h:${t.remainMinutes}m:${t.remainSeconds}s`;
-          this.timer = res;
+        this.timer = res;
+        this.timedateFinal = t
       }, 1000);
     },
     async mostrar() {
       const n = await getList();
       this.datos = n.filter((elem) => elem.Zona == this.zonaSel);
     },
-    async elminiar() {
-      Socket.emit("Selecciona", 1, "A", 1);
+    async exit(Posicion, Zona, Piso){
+      console.log('PafueraR')
+
+      localStorage.removeItem('@posicion');
+      localStorage.removeItem('@Zona');
+      localStorage.removeItem('@Piso');
+      
+      Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
     },
     async retorno(name) {
       alert(name);
@@ -142,9 +183,24 @@ export default {
       this.ref = lista.filter((elem) => elem.Zona == this.zonaSel);
       this.datos = this.ref;
     },
+    async salir(Posicion, Zona, Piso){
+      console.log('PAFUERA')
+      localStorage.removeItem('@posicion');
+      localStorage.removeItem('@Zona');
+      localStorage.removeItem('@Piso');
+      console.log( Posicion, Zona, Piso, this.info.token)
+      // Socket.emit("Selecciona", Posicion, Zona, Piso, this.info.token);
+    },
   },
   mounted() {
     Socket.on("Selecciona", (lista) => {
+      if(this.interval){
+        clearInterval(this.interval)
+        this.interval = null;  
+      }else{
+        this.timedate = new Date();
+        this.countdown(this.timedate);
+      }
       this.ref = lista.filter((elem) => elem.Zona == this.zonaSel);
       this.datos = this.ref;
     });
@@ -156,7 +212,8 @@ export default {
           this.Zona,
           this.Piso,
           `Ocupado por: ${res.auto}`,
-          res.auto
+          res.auto,
+          0
         );
       } else if (res.status == "existe") {
         this.$refs.dialog.openD(
@@ -164,7 +221,8 @@ export default {
           res.existe.Zona,
           res.existe.Piso,
           `Ya tienes un lugar asignado`,
-          res.auto
+          res.auto,
+          0
         );
       }
     });
