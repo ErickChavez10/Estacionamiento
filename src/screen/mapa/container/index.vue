@@ -4,7 +4,7 @@
 
     <v-container class="rounded-lg">
       <v-select
-        :items="['Mapa', 'Zona A', 'Zona B', 'Zona C', 'Zona D']"
+        :items="['Mapa', 'Zona A', 'Zona B']"
         label="Ver Mapa"
         outlined
         @change="change"
@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       sel: "Mapa",
-      a_img: '@/assets/mapa/AMapa.png',
-      image: require('@/assets/mapa/AMapa.png')
+      a_img: '@/assets/mapa/Todas.png',
+      image: require('@/assets/mapa/Todas.png')
     };
   },
   methods: {
@@ -52,17 +52,17 @@ export default {
       switch (this.sel) {
         case 'Mapa':
           console.log("[SEL]",this.sel)
-          this.image = require('@/assets/mapa/AMapa.png')
+          this.image = require('@/assets/mapa/Todas.png')
           break;
         case 'Zona A':
           console.log("[SEL]",this.sel)
           // this.a_img = '@/assets/mapa/rojo.png'
-          this.image = require('@/assets/mapa/rojo.png')
+          this.image = require('@/assets/mapa/ZonaA.png')
           break;
         case 'Zona B':
           console.log("[SEL]",this.sel)
           // this.a_img = '@/assets/mapa/azul.png'
-          this.image = require('@/assets/mapa/azul.png')
+          this.image = require('@/assets/mapa/ZonaB.png')
           break;
         case 'Zona C':
           console.log("[SEL]",this.sel)

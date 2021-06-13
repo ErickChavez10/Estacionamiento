@@ -20,7 +20,7 @@
         </v-card-text>
         <v-card-text v-if="tipoDialog == 1">
           <v-row>
-            <v-col>Monto total: ${{cost}} </v-col>
+            <!-- <v-col>Monto total: ${{cost}} </v-col> -->
           </v-row>
         </v-card-text>
 
@@ -82,7 +82,7 @@ export default {
 
     },
     salir(final, msg, Posicion, Zona, Piso, token, tipoDialog) {
-      this.cost = parseInt(final.remainHours) * 50 + parseInt(final.remainMinutes) * 5
+      // this.cost = parseInt(final.remainHours) * 50 + parseInt(final.remainMinutes) * 5
       this.dialog = !this.dialog;
       this.tipoDialog = tipoDialog;
       
@@ -92,7 +92,7 @@ export default {
       this.token = token;
 
       this.msg = msg;
-      this.final = final;
+      // this.final = final;
 
     },
   },

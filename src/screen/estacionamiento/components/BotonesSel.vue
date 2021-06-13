@@ -18,7 +18,7 @@
 
       <v-col class="px-5" cols="12" sm="4" md="4" lg="4" xl="4" pill="4">
         <v-select
-          :items="['Zona A', 'Zona B', 'Zona C', 'Zona D']"
+          :items="['Zona A', 'Zona B']"
           class="mt-2 text-center rounded-lg"
           label="Seleccionar Zona"
           @change="change_zona"

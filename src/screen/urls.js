@@ -8,8 +8,21 @@ import { SERVER_IP } from "../config/index";
 const URL_LIST = 'list'
 const URL_ADD_USER = 'addUser'
 const URL_LOGIN = 'login'
+const URL_PARKING = 'parking'
+const URL_USERS = 'users'
 
 
+export const getUsers = async () => {
+    const URL = SERVER_IP + URL_USERS;
+    const a = await (await fetch(URL)).json()
+    return a;
+}
+export const getParking = async () => {
+    const URL = SERVER_IP + URL_PARKING;
+    const a = await (await fetch(URL)).json()
+    console.log("[soy a]",a)
+    return a;
+}
 export const getList = async () => {
     const URL = SERVER_IP + URL_LIST;
     const a = await (await fetch(URL)).json()

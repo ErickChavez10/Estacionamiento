@@ -61,13 +61,13 @@ export default {
   name: "signup",
   data() {
     return {
-      r_name: "Erick Chavez",
-      r_mod_auto: "Ford Mustang 2006",
-      r_email: "erick@ch.com",
+      r_name: "",
+      r_mod_auto: "",
+      r_email: "",
       r_show2: false,
       r_show3: false,
-      r_password: "123",
-      r_password_confirm: "123",
+      r_password: "",
+      r_password_confirm: "",
     };
   },
   methods: {

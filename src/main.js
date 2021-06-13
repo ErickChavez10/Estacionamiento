@@ -8,6 +8,7 @@ import Home from "./screen/home/container/index.vue";
 import Mapa from "./screen/mapa/container/index.vue";
 import Otra from "./screen/otra/index.vue";
 import Estacionamiento from "./screen/estacionamiento/container/index.vue";
+import Admin from "./screen/admin/index.vue";
 import store from './store'
 
 Vue.config.productionTip = false;
@@ -43,6 +44,11 @@ const routes = [
     path: "/Otra",
     name: "Otra",
     component: Otra,
+  },
+  {
+    path: "/Admin",
+    name: "Admin",
+    component: Admin,
   },
 ];
 const router = new VueRouter({

@@ -16,12 +16,14 @@
     </v-card>
     <v-list nav dense>
       <v-list-item-group active-class="deep-purple--text text--accent-4">
-        <v-list-item>
-          <v-list-item-title>
-            <v-icon style="margin-bottom: 5px">mdi-account-edit</v-icon>
-            ACTUALIZAR PERFIL
-          </v-list-item-title>
-        </v-list-item>
+        <router-link to="/admin" style="text-decoration: none">
+          <v-list-item>
+            <v-list-item-title>
+              <v-icon style="margin-bottom: 5px">mdi-account-tie</v-icon>
+              ADMINISTRACION
+            </v-list-item-title>
+          </v-list-item>
+        </router-link>
 
         <router-link to="/" style="text-decoration: none">
           <v-list-item>
